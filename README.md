@@ -91,6 +91,47 @@ pre-generated `.a` file and its headers inside the `include` directory.
 To import headers in the `app` module, we use the command `include_directories`
 
 
+#### Building
+
+The following steps are required to build this on macOS/Linux:
+
+1. Install an Android SDK and NDK, e.g., using Android Studio. Then specify its location:
+  ```
+  export ANDROID_HOME=${HOME}/Library/Android/sdk
+  export ANDROID_NDK=${HOME}/Library/Android/sdk/ndk/26.2.11394342
+  ```
+2. Install a Java Development Kit. Then specify its location:
+  ```
+  export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk-22.jdk/Contents/Home
+  ```
+3. Clone this repository
+  ```
+  git clone https://github.com/bowserf/android-cmake-sample.git
+  cd android-cmake-sample.git
+  ```
+4. Build the native example libraries
+  ```
+  cd shared_library
+  ./library_build.sh
+  # The directory shared_library/prebuilt should be populated now
+  
+  cd ../static_library
+  ./library_build.sh
+  # The directory static_library/prebuilt should be populated now
+  
+  cd ..
+  ```
+5. Build the APKs (debug, release)
+  ```
+  ./gradlew assemble
+  # The APKs should be located in app/build/outputs/apk/{debug, release}
+  ```
+6. Install and run the app (debug)
+  ```
+  ./gradlew installDebug
+  ```
+
+
 ## Resources:
 
 - [Android NDK guides](https://developer.android.com/ndk/guides)
